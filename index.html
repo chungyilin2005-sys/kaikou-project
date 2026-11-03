@@ -179,7 +179,7 @@ button:focus-visible,select:focus-visible{outline:3px solid var(--sign-ink); out
     <div class="field">
       <label for="voice">英文朗讀聲音</label>
       <select id="voice"></select>
-      <small>清單來自你的手機或電腦內建語音，名稱有 Natural、Enhanced、Premium 的通常比較自然。</small>
+      <small>清單來自你的手機或電腦內建語音，比較自然的會排在前面。手機聽起來生硬的話：iPhone 到「設定 → 輔助使用 → 朗讀內容 → 聲音 → 英文」下載「加強版」語音（如 Ava、Zoe）；Android 到「文字轉語音輸出」改用 Google 引擎並下載英文（美國）語音。下載後重新開啟這個頁面。</small>
     </div>
     <div class="field">
       <label>清除進度</label>
@@ -361,7 +361,10 @@ document.getElementById("extra").onclick=()=>{
 
 /* 朗讀 */
 let voices=[];
-const PREFER=["Natural","Enhanced","Premium","Neural","Samantha","Google US English","Aria","Jenny","Guy"];
+// 名稱或 voiceURI 含這些字的優先；iOS 下載的高品質語音只會在 voiceURI 標示 enhanced/premium
+const PREFER=["Natural","Premium","Enhanced","Neural","Ava","Zoe","Evan","Nathan","Samantha","Google US English","Aria","Jenny","Guy"];
+// iOS 內建的趣味音效與 Eloquence 語音，唸句子很不自然，排到最後
+const NOVELTY=/\b(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Good News|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Ralph|Kathy|Eddy|Flo|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley)\b/;
 function loadVoices(){
   if(!("speechSynthesis" in window)) return;
   voices = speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));
@@ -371,7 +374,14 @@ function loadVoices(){
   voices.forEach(v=>{const o=document.createElement("option"); o.value=v.name; o.textContent=v.name+"（"+v.lang+"）"; sel.appendChild(o);});
   if(state.voice && voices.some(v=>v.name===state.voice)) sel.value=state.voice;
 }
-function score(v){let s=0; PREFER.forEach((p,i)=>{if(v.name.includes(p)) s+=20-i;}); if(/en[-_]US/i.test(v.lang)) s+=3; return s;}
+function score(v){
+  const id=(v.name+" "+(v.voiceURI||"")).toLowerCase();
+  let s=0; PREFER.forEach((p,i)=>{if(id.includes(p.toLowerCase())) s+=20-i;});
+  if(/network/i.test(v.name)) s+=8;   // Android Google 的線上語音
+  if(NOVELTY.test(v.name)) s-=50;
+  if(/en[-_]US/i.test(v.lang)) s+=3;
+  return s;
+}
 if("speechSynthesis" in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
 document.getElementById("voice").onchange=e=>{state.voice=e.target.value; save(); speak("Nice to meet you.",0.9);};
 function speak(text, rate){

@@ -63,7 +63,7 @@
 ### 4.3 設定
 
 - **每天新句子數量**：3／5（預設）／8，次日生效。
-- **英文朗讀聲音**：列出裝置上所有英文語音，依自然程度排序（見 §7.1），選擇後試唸「Nice to meet you.」。
+- **英文朗讀聲音**：列出裝置上所有英文語音，依自然程度排序（見 §7.1），選擇後試唸「Nice to meet you.」。沒選過時使用排序第一的語音。
 - **清除進度**：確認後清空所有紀錄，保留聲音設定。
 
 ## 5. 間隔重複演算法
@@ -131,7 +131,9 @@
 ### 7.1 朗讀（Web Speech API）
 
 - 只列出 `lang` 為 `en-*` 的語音。
-- 排序加權：名稱含 Natural、Enhanced、Premium、Neural、Samantha、Google US English、Aria、Jenny、Guy 者優先，`en-US` 再加分。
+- 排序加權：名稱或 `voiceURI`（不分大小寫）含 Natural、Premium、Enhanced、Neural、Ava、Zoe、Evan、Nathan、Samantha、Google US English、Aria、Jenny、Guy 者優先；Android 名稱含 network 的線上語音加分；iOS 趣味音效與 Eloquence 語音（Bubbles、Zarvox、Grandma 等）排到最後；`en-US` 再加分。
+- iOS 下載的「加強版」「高音質」語音，名稱不一定標示等級，要看 `voiceURI`（如 `com.apple.voice.enhanced.en-US.Ava`）。
+- 設定頁的說明文字要告訴使用者如何在 iPhone、Android 下載高品質語音。
 - 朗讀前把彎引號 `’` 換成直引號 `'`，避免部分語音唸錯。
 - 每次朗讀前先 `speechSynthesis.cancel()`，延遲 60ms 再播放，避開 Chrome 連續呼叫的問題。
 
