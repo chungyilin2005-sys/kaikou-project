@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>開口說：旅行英文每日練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F3; --surface:#FFFFFF; --ink:#1B2733; --muted:#5B6873; --line:#CDD4DA;
+  --sign:#1F2A33; --sign-ink:#F5C518; --sign-sub:#C9D2D9;
+  --go:#2E7D5B; --mid:#A9781A; --stop:#B4462F; --btn:#1B2733; --btn-ink:#FFFFFF;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#14191E; --surface:#1C232A; --ink:#E6EAEE; --muted:#9AA6B0; --line:#2C353E;
+    --sign:#0C1014; --sign-ink:#F5C518; --sign-sub:#9AA6B0;
+    --go:#4FAE85; --mid:#D7A43C; --stop:#D9694F; --btn:#E6EAEE; --btn-ink:#14191E;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14191E; --surface:#1C232A; --ink:#E6EAEE; --muted:#9AA6B0; --line:#2C353E;
+  --sign:#0C1014; --sign-ink:#F5C518; --sign-sub:#9AA6B0;
+  --go:#4FAE85; --mid:#D7A43C; --stop:#D9694F; --btn:#E6EAEE; --btn-ink:#14191E;
+  color-scheme: dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-size:17px; line-height:1.6;
+}
+.en{font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:560px; margin:0 auto; padding:20px 18px 40px}
+header{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:18px}
+h1{font-size:1.35rem; font-weight:900; margin:0; letter-spacing:.02em}
+nav{display:flex; gap:4px}
+nav button{background:none; border:0; color:var(--muted); font:inherit; font-size:.95rem; padding:6px 10px; border-radius:6px; cursor:pointer}
+nav button[aria-current="true"]{color:var(--ink); font-weight:700; text-decoration:underline; text-underline-offset:6px; text-decoration-thickness:2px}
+.stats{display:flex; gap:18px; color:var(--muted); font-size:.92rem; margin-bottom:14px}
+.stats b{color:var(--ink); font-size:1.05rem}
+
+/* 招牌：整頁唯一的強烈元素 */
+.sign{
+  background:var(--sign); color:var(--sign-ink); border-radius:4px;
+  padding:18px 20px 26px; position:relative; min-height:170px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.sign .scene{display:flex; align-items:center; gap:10px; color:var(--sign-sub); font-size:.9rem}
+.sign .scene .pill{background:var(--sign-ink); color:var(--sign); font-weight:700; padding:1px 9px; border-radius:2px}
+.sign .zh{font-size:clamp(1.6rem,6.5vw,2.1rem); font-weight:900; line-height:1.35; margin-top:18px}
+
+.hint{color:var(--muted); font-size:.95rem; margin:14px 2px}
+.primary{
+  width:100%; padding:14px; font:inherit; font-weight:700; font-size:1.05rem;
+  background:var(--btn); color:var(--btn-ink); border:0; border-radius:8px; cursor:pointer;
+}
+.answer{margin-top:18px; border-top:2px solid var(--line); padding-top:16px}
+.answer .enText{font-size:1.55rem; font-weight:700; line-height:1.35; margin:0 0 6px}
+.answer .tip{color:var(--muted); font-size:.95rem; margin:0 0 16px}
+.tools{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.tool{
+  padding:11px 8px; font:inherit; font-size:.95rem; background:var(--surface); color:var(--ink);
+  border:1.5px solid var(--line); border-radius:8px; cursor:pointer;
+}
+.tool.rec{border-color:var(--stop); color:var(--stop)}
+.tool.rec.on{background:var(--stop); color:#fff}
+.tool:disabled{opacity:.4; cursor:default}
+.micnote{color:var(--muted); font-size:.85rem; margin:8px 2px 0}
+.rate{margin-top:20px}
+.rate p{margin:0 0 8px; font-weight:700}
+.rate .row{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.rate button{padding:12px 4px; font:inherit; font-weight:700; border-radius:8px; cursor:pointer; background:transparent; border:2px solid}
+.r0{color:var(--stop); border-color:var(--stop)!important}
+.r1{color:var(--mid); border-color:var(--mid)!important}
+.r2{color:var(--go); border-color:var(--go)!important}
+.empty{padding:28px 4px; text-align:left}
+.empty h2{font-size:1.3rem; margin:0 0 8px}
+.empty p{color:var(--muted); margin:0 0 16px}
+
+/* 句庫 */
+.group{margin-bottom:22px}
+.group h3{font-size:1rem; margin:0 0 6px; padding-bottom:4px; border-bottom:2px solid var(--ink)}
+.item{display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--line)}
+.item .txt{flex:1; min-width:0}
+.item .zh2{font-size:.95rem}
+.item .en2{font-size:1rem; font-weight:700}
+.item .lv{font-size:.8rem; color:var(--muted); white-space:nowrap; padding-top:3px}
+.item button{background:none; border:1.5px solid var(--line); color:var(--ink); border-radius:6px; padding:4px 10px; font:inherit; font-size:.85rem; cursor:pointer}
+
+/* 設定 */
+.field{margin-bottom:20px}
+.field label{display:block; font-weight:700; margin-bottom:6px}
+.field select{width:100%; padding:10px; font:inherit; background:var(--surface); color:var(--ink); border:1.5px solid var(--line); border-radius:8px}
+.field small{display:block; color:var(--muted); margin-top:6px}
+.danger{background:none; border:1.5px solid var(--stop); color:var(--stop); padding:10px 14px; border-radius:8px; font:inherit; cursor:pointer}
+button:focus-visible,select:focus-visible{outline:3px solid var(--sign-ink); outline-offset:2px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion: no-preference){
+  .answer{animation:drop .25s ease-out}
+  @keyframes drop{from{opacity:0; transform:translateY(-6px)}to{opacity:1; transform:none}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>開口說</h1>
+    <nav>
+      <button data-view="practice" aria-current="true">今日練習</button>
+      <button data-view="library">句庫</button>
+      <button data-view="settings">設定</button>
+    </nav>
+  </header>
+
+  <section id="practice">
+    <div class="stats">
+      <span>今天還有 <b id="left">0</b> 句</span>
+      <span>連續 <b id="streak">0</b> 天</span>
+      <span>已學 <b id="learned">0</b>／<span id="total">0</span></span>
+    </div>
+
+    <div id="card">
+      <div class="sign">
+        <div class="scene"><span class="pill" id="scene">機場</span><span id="kind">新句子</span></div>
+        <div class="zh" id="zh"></div>
+      </div>
+      <p class="hint" id="hint">先不看答案，用英文大聲說出來。說不完整也沒關係。</p>
+      <button class="primary" id="reveal">我說完了，看答案</button>
+
+      <div class="answer" id="answer" hidden>
+        <p class="enText en" id="en" lang="en"></p>
+        <p class="tip" id="tip"></p>
+        <div class="tools">
+          <button class="tool" id="play">播放</button>
+          <button class="tool" id="slow">慢速播放</button>
+          <button class="tool rec" id="rec">錄下我的跟讀</button>
+          <button class="tool" id="mine" disabled>聽我的錄音</button>
+        </div>
+        <p class="micnote" id="micnote">聽一次，跟著唸一次，再錄下來比對語調。</p>
+        <div class="rate">
+          <p>剛才自己說的時候，感覺如何？</p>
+          <div class="row">
+            <button class="r0" data-r="0">說不出來</button>
+            <button class="r1" data-r="1">卡卡的</button>
+            <button class="r2" data-r="2">很順</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty" id="done" hidden>
+      <h2>今天的練習完成了</h2>
+      <p>說不順的句子會在明天再出現，很順的句子間隔會越拉越長。明天再來，每天 10 分鐘就好。</p>
+      <button class="primary" id="extra">再多學 3 句新的</button>
+    </div>
+  </section>
+
+  <section id="library" hidden></section>
+
+  <section id="settings" hidden>
+    <div class="field">
+      <label for="newPerDay">每天新句子數量</label>
+      <select id="newPerDay">
+        <option value="3">3 句（輕鬆）</option>
+        <option value="5">5 句（建議）</option>
+        <option value="8">8 句（積極）</option>
+      </select>
+      <small>從明天起生效。複習的句子另外計算。</small>
+    </div>
+    <div class="field">
+      <label for="voice">英文朗讀聲音</label>
+      <select id="voice"></select>
+      <small>清單來自你的手機或電腦內建語音，名稱有 Natural、Enhanced、Premium 的通常比較自然。</small>
+    </div>
+    <div class="field">
+      <label>清除進度</label>
+      <button class="danger" id="reset">清除所有練習紀錄</button>
+      <small>進度只存在這台裝置的瀏覽器裡，換手機或清除瀏覽資料會不見。</small>
+    </div>
+  </section>
+</div>
+
+<script>
+const SCENES = ["機場","飯店","餐廳","交通問路","購物","觀光","閒聊","突發狀況"];
+const RAW = [
+ ["機場","我要託運一件行李。","I’d like to check one bag.","check a bag＝託運行李；I’d like to… 是最好用的禮貌開頭"],
+ ["機場","可以給我靠走道的位子嗎？","Could I get an aisle seat?","aisle 的 s 不發音，唸 /aɪl/；靠窗是 window seat"],
+ ["機場","這班飛機從哪個登機門出發？","Which gate does this flight leave from?","gate＝登機門；leave from＝從…出發"],
+ ["機場","我的班機延誤了，我該怎麼辦？","My flight’s been delayed. What should I do?","flight’s been＝flight has been，口語會縮讀"],
+ ["機場","我的行李沒有出來。","My bag didn’t come out.","行李轉盤叫 baggage carousel"],
+ ["機場","我是來觀光的，待五天。","I’m here on vacation for five days.","入境審查最常問的就是 purpose 和 how long"],
+ ["機場","我住在市中心的一間飯店。","I’m staying at a hotel downtown.","downtown 直接當副詞用，不用加 in"],
+ ["機場","這個可以帶上飛機嗎？","Can I take this on the plane?","on the plane＝在飛機上，搭配 take…on"],
+ ["飯店","我有訂房，名字是王。","I have a reservation under Wang.","under＋名字＝用這個名字訂的"],
+ ["飯店","可以先把行李寄放在這裡嗎？","Can I leave my bags here for now?","for now＝暫時、先"],
+ ["飯店","幾點要退房？","What time is checkout?","checkout 一個字；入住是 check-in"],
+ ["飯店","冷氣好像壞了。","The air conditioner doesn’t seem to be working.","doesn’t seem to＝好像不…，語氣比較客氣"],
+ ["飯店","可以多給我一條毛巾嗎？","Could I get an extra towel?","Could I get…? 點東西、要東西通用"],
+ ["飯店","Wi-Fi 密碼是多少？","What’s the Wi-Fi password?","Wi-Fi 美式唸 /ˈwaɪ.faɪ/"],
+ ["飯店","早餐幾點開始？","What time does breakfast start?","What time does…start/end? 可以套用到任何活動"],
+ ["飯店","可以幫我叫計程車嗎？","Could you call a taxi for me?","Could you…for me? 請別人幫忙的萬用句型"],
+ ["餐廳","兩位，有位子嗎？","Do you have a table for two?","人數用 a table for＋數字"],
+ ["餐廳","你推薦什麼？","What do you recommend?","recommend 重音在 -mend"],
+ ["餐廳","我要這個，還有這個。","I’ll have this one and this one.","點餐用 I’ll have…，邊說邊指菜單就好"],
+ ["餐廳","我不吃牛肉。","I don’t eat beef.","過敏可以說 I’m allergic to…"],
+ ["餐廳","這道菜會辣嗎？","Is this dish spicy?","spicy＝辣；hot 也可以，但可能被當成燙"],
+ ["餐廳","可以再給我們幾分鐘嗎？","Could we have a few more minutes?","還沒決定點什麼時用"],
+ ["餐廳","麻煩買單。","Could we get the check, please?","美國用 check，英國用 bill"],
+ ["餐廳","剩下的可以打包嗎？","Can I get a box for the leftovers?","leftovers＝剩菜"],
+ ["交通問路","請問車站怎麼走？","Excuse me, how do I get to the station?","how do I get to…? 問路固定說法"],
+ ["交通問路","走路到得了嗎？","Is it within walking distance?","within walking distance＝走路可到的距離"],
+ ["交通問路","這班公車有到市中心嗎？","Does this bus go downtown?","上車前問司機最快"],
+ ["交通問路","我要在哪一站下車？","Which stop should I get off at?","get off＝下車；上車是 get on"],
+ ["交通問路","一張到機場的單程票。","One one-way ticket to the airport, please.","來回票是 round-trip ticket"],
+ ["交通問路","請載我到這個地址。","Please take me to this address.","搭計程車時邊說邊給手機地址"],
+ ["交通問路","我好像迷路了。","I think I’m lost.","I think… 讓語氣軟一點"],
+ ["交通問路","大概要多久？","About how long does it take?","about 放句首表示「大概」"],
+ ["購物","我只是看看，謝謝。","I’m just looking, thanks.","店員問 Can I help you? 時的標準回答"],
+ ["購物","這個有小一號的嗎？","Do you have this in a smaller size?","大一號是 a bigger size；in＋尺寸或顏色"],
+ ["購物","我可以試穿嗎？","Can I try this on?","try on＝試穿；this 放中間"],
+ ["購物","這個多少錢？","How much is this?","複數用 How much are these?"],
+ ["購物","可以刷卡嗎？","Can I pay by card?","付現是 pay in cash"],
+ ["購物","這個可以退稅嗎？","Can I get a tax refund on this?","tax refund＝退稅"],
+ ["購物","可以幫我包成禮物嗎？","Could you gift-wrap it?","gift-wrap 當動詞用"],
+ ["購物","我再考慮一下。","I’ll think about it.","不想買時禮貌離開的說法"],
+ ["觀光","可以幫我們拍張照嗎？","Could you take a picture of us?","take a picture of＋人"],
+ ["觀光","門票多少錢？","How much is admission?","admission＝入場費"],
+ ["觀光","你們幾點關門？","What time do you close?","開門是 open"],
+ ["觀光","這裡可以拍照嗎？","Is it okay to take photos here?","Is it okay to…? 詢問許可的萬用句"],
+ ["觀光","這附近有什麼值得去的地方？","Is there anything worth seeing around here?","worth＋V-ing＝值得做…"],
+ ["觀光","有中文的導覽嗎？","Do you have a guide in Chinese?","語音導覽是 audio guide"],
+ ["觀光","洗手間在哪裡？","Where’s the restroom?","美國說 restroom，英國常說 toilet"],
+ ["觀光","可以給我一份地圖嗎？","Could I have a map, please?","Could I have…? 也可以換成 get"],
+ ["閒聊","我來自台灣。","I’m from Taiwan.","別人問 Where are you from? 時回答"],
+ ["閒聊","這是我第一次來這裡。","This is my first time here.","first time＋地點，非常好用的開場"],
+ ["閒聊","我在市政府工作。","I work for the city government.","work for＋機構；work at＋地點"],
+ ["閒聊","我英文不太好，可以說慢一點嗎？","My English isn’t great. Could you speak a little slower?","先說這句，對方通常會放慢，你就不緊張了"],
+ ["閒聊","不好意思，可以再說一次嗎？","Sorry, could you say that again?","聽不懂就問，這句要練到反射"],
+ ["閒聊","這個用英文怎麼說？","How do you say this in English?","邊指東西邊問，順便學新字"],
+ ["閒聊","天氣真好，對吧？","Beautiful day, isn’t it?","口語常省略 It’s a，直接說 Beautiful day"],
+ ["閒聊","很高興認識你。","Nice to meet you.","第二次見面改說 Nice to see you"],
+ ["閒聊","你是本地人嗎？","Are you from around here?","around here＝這一帶"],
+ ["閒聊","你推薦我去哪裡玩？","Where would you recommend I go?","recommend 後面直接接 I go，不用 to"],
+ ["突發狀況","我的錢包不見了。","I lost my wallet.","被偷是 My wallet was stolen."],
+ ["突發狀況","可以幫我一下嗎？","Could you help me out?","help me out 比 help me 更口語"],
+ ["突發狀況","最近的藥局在哪裡？","Where’s the nearest pharmacy?","the nearest＋地點，找任何地方都能用"],
+ ["突發狀況","我需要看醫生。","I need to see a doctor.","看醫生用 see，不用 look"],
+ ["突發狀況","我的手機沒電了，可以在這裡充電嗎？","My phone’s dead. Could I charge it here?","手機沒電口語說 dead"],
+ ["突發狀況","我搭錯車了。","I took the wrong train.","wrong＋名詞：wrong bus、wrong way"],
+ ["突發狀況","請幫我叫警察。","Please call the police.","緊急時語氣直接沒關係"]
+];
+const CARDS = RAW.map((r,i)=>({id:i, scene:r[0], zh:r[1], en:r[2], tip:r[3]}));
+
+// 讓新句子在各場景之間輪流出現
+const ORDER = (()=>{
+  const by = {}; SCENES.forEach(s=>by[s]=[]);
+  CARDS.forEach(c=>by[c.scene].push(c.id));
+  const out=[]; let k=0, added=true;
+  while(added){ added=false; SCENES.forEach(s=>{ if(by[s][k]!==undefined){out.push(by[s][k]); added=true;} }); k++; }
+  return out;
+})();
+const INTERVALS=[0,1,2,4,7,15,30,60];
+const KEY="kaikou-travel-v1";
+
+function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function addDays(s,n){const [y,m,d]=s.split("-").map(Number);const t=new Date(y,m-1,d+n);return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");}
+
+let state = load();
+function blank(){return {cards:{}, newPerDay:5, voice:"", planDay:"", todayNew:[], doneToday:[], lastDay:"", streak:0};}
+function load(){
+  try{const s=localStorage.getItem(KEY); if(s){return Object.assign(blank(), JSON.parse(s));}}catch(e){}
+  return blank();
+}
+function save(){try{localStorage.setItem(KEY, JSON.stringify(state));}catch(e){}}
+
+let queue=[], current=null;
+
+function plan(){
+  const t=today();
+  if(state.planDay!==t){
+    state.planDay=t; state.doneToday=[];
+    state.todayNew = ORDER.filter(id=>!state.cards[id]).slice(0, state.newPerDay);
+    save();
+  }
+  const due = CARDS.filter(c=>{const s=state.cards[c.id]; return s && s.due<=t && !state.doneToday.includes(c.id) && !state.todayNew.includes(c.id);}).map(c=>c.id);
+  shuffle(due);
+  const fresh = state.todayNew.filter(id=>!state.doneToday.includes(id));
+  queue = due.concat(fresh);
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function show(){
+  updateStats();
+  stopAudio();
+  if(!queue.length){
+    document.getElementById("card").hidden=true;
+    document.getElementById("done").hidden=false;
+    return;
+  }
+  document.getElementById("card").hidden=false;
+  document.getElementById("done").hidden=true;
+  current = CARDS[queue[0]];
+  const s = state.cards[current.id];
+  document.getElementById("scene").textContent=current.scene;
+  document.getElementById("kind").textContent = s ? "複習" : "新句子";
+  document.getElementById("zh").textContent=current.zh;
+  document.getElementById("en").textContent=current.en;
+  document.getElementById("tip").textContent=current.tip;
+  document.getElementById("answer").hidden=true;
+  document.getElementById("reveal").hidden=false;
+  document.getElementById("hint").hidden=false;
+  if(myAudioUrl) URL.revokeObjectURL(myAudioUrl);
+  myAudioUrl=null; document.getElementById("mine").disabled=true;
+}
+function updateStats(){
+  document.getElementById("left").textContent=queue.length;
+  document.getElementById("streak").textContent=state.streak;
+  document.getElementById("learned").textContent=Object.keys(state.cards).length;
+  document.getElementById("total").textContent=CARDS.length;
+}
+
+document.getElementById("reveal").onclick=()=>{
+  document.getElementById("answer").hidden=false;
+  document.getElementById("reveal").hidden=true;
+  document.getElementById("hint").hidden=true;
+  speak(current.en, 0.9);
+};
+
+document.querySelectorAll(".rate button").forEach(b=>b.onclick=()=>rate(Number(b.dataset.r)));
+function rate(r){
+  const t=today();
+  if(state.lastDay!==t){
+    state.streak = (state.lastDay===addDays(t,-1)) ? state.streak+1 : 1;
+    state.lastDay=t;
+  }
+  const s = state.cards[current.id] || {box:0, due:t};
+  if(r===0){ s.box=0; s.due=t; }
+  else if(r===1){ s.box=Math.max(1, s.box); s.due=addDays(t,1); }
+  else { s.box=Math.min(s.box+1, INTERVALS.length-1); s.due=addDays(t, INTERVALS[s.box]); }
+  state.cards[current.id]=s;
+  queue.shift();
+  if(r===0){ queue.push(current.id); }        // 說不出來：這輪最後再練一次
+  else { state.doneToday.push(current.id); }
+  save(); show();
+}
+
+document.getElementById("extra").onclick=()=>{
+  const more = ORDER.filter(id=>!state.cards[id] && !state.todayNew.includes(id)).slice(0,3);
+  if(!more.length){ document.getElementById("extra").textContent="句庫裡的句子都學過了"; return; }
+  state.todayNew = state.todayNew.concat(more); save(); plan(); show();
+};
+
+/* 朗讀 */
+let voices=[];
+const PREFER=["Natural","Enhanced","Premium","Neural","Samantha","Google US English","Aria","Jenny","Guy"];
+function loadVoices(){
+  if(!("speechSynthesis" in window)) return;
+  voices = speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));
+  voices.sort((a,b)=>score(b)-score(a));
+  const sel=document.getElementById("voice"); sel.innerHTML="";
+  if(!voices.length){ const o=document.createElement("option"); o.textContent="找不到英文語音"; sel.appendChild(o); return; }
+  voices.forEach(v=>{const o=document.createElement("option"); o.value=v.name; o.textContent=v.name+"（"+v.lang+"）"; sel.appendChild(o);});
+  if(state.voice && voices.some(v=>v.name===state.voice)) sel.value=state.voice;
+}
+function score(v){let s=0; PREFER.forEach((p,i)=>{if(v.name.includes(p)) s+=20-i;}); if(/en[-_]US/i.test(v.lang)) s+=3; return s;}
+if("speechSynthesis" in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
+document.getElementById("voice").onchange=e=>{state.voice=e.target.value; save(); speak("Nice to meet you.",0.9);};
+function speak(text, rate){
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text.replace(/’/g,"'"));
+  u.lang="en-US"; u.rate=rate;
+  const v = voices.find(x=>x.name===state.voice) || voices[0];
+  if(v) u.voice=v;
+  setTimeout(()=>speechSynthesis.speak(u), 60);
+}
+document.getElementById("play").onclick=()=>speak(current.en,0.9);
+document.getElementById("slow").onclick=()=>speak(current.en,0.62);
+
+/* 錄音 */
+let recorder=null, chunks=[], myAudioUrl=null, myAudio=null, stream=null;
+const recBtn=document.getElementById("rec"), mineBtn=document.getElementById("mine"), note=document.getElementById("micnote");
+recBtn.onclick=async()=>{
+  if(recorder && recorder.state==="recording"){ recorder.stop(); return; }
+  try{
+    if(!stream) stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[]; recorder=new MediaRecorder(stream);
+    recorder.ondataavailable=e=>{ if(e.data.size) chunks.push(e.data); };
+    recorder.onstop=()=>{
+      recBtn.classList.remove("on"); recBtn.textContent="重新錄一次";
+      myAudioUrl=URL.createObjectURL(new Blob(chunks,{type:recorder.mimeType||"audio/webm"}));
+      mineBtn.disabled=false; playMine();
+    };
+    if("speechSynthesis" in window) speechSynthesis.cancel();
+    recorder.start(); recBtn.classList.add("on"); recBtn.textContent="停止錄音";
+  }catch(e){
+    note.textContent="這個頁面目前無法使用麥克風（可能是權限被拒絕或瀏覽器不支援）。沒關係，直接跟著播放大聲唸，效果一樣有。";
+    recBtn.disabled=true;
+  }
+};
+function playMine(){ if(!myAudioUrl) return; myAudio=new Audio(myAudioUrl); myAudio.play(); }
+mineBtn.onclick=playMine;
+function stopAudio(){
+  if(recorder && recorder.state==="recording"){ recorder.onstop=null; recorder.stop(); }  // 換句或換頁時中斷錄音：丟掉這段，不要帶到下一句
+  if(myAudio){myAudio.pause();}
+  if("speechSynthesis" in window) speechSynthesis.cancel();
+  recBtn.textContent="錄下我的跟讀"; recBtn.classList.remove("on");
+}
+
+/* 句庫 */
+function renderLibrary(){
+  const lib=document.getElementById("library"); lib.innerHTML="";
+  const label=s=>!s?"未學":(s.box>=4?"熟練":s.box>=2?"漸熟":"練習中");
+  SCENES.forEach(sc=>{
+    const g=document.createElement("div"); g.className="group";
+    const h=document.createElement("h3"); h.textContent=sc; g.appendChild(h);
+    CARDS.filter(c=>c.scene===sc).forEach(c=>{
+      const it=document.createElement("div"); it.className="item";
+      it.innerHTML='<div class="txt"><div class="en2 en" lang="en"></div><div class="zh2"></div></div><span class="lv"></span><button>播放</button>';
+      it.querySelector(".en2").textContent=c.en;
+      it.querySelector(".zh2").textContent=c.zh;
+      it.querySelector(".lv").textContent=label(state.cards[c.id]);
+      it.querySelector("button").onclick=()=>speak(c.en,0.9);
+      g.appendChild(it);
+    });
+    lib.appendChild(g);
+  });
+}
+
+/* 分頁 */
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-current", x===b?"true":"false"));
+  ["practice","library","settings"].forEach(v=>document.getElementById(v).hidden = v!==b.dataset.view);
+  stopAudio();
+  if(b.dataset.view==="library") renderLibrary();
+  if(b.dataset.view==="practice"){ plan(); show(); }
+});
+
+const npd=document.getElementById("newPerDay");
+npd.value=String(state.newPerDay);
+npd.onchange=()=>{state.newPerDay=Number(npd.value); save();};
+document.getElementById("reset").onclick=()=>{
+  if(!confirm("確定要清除所有練習紀錄嗎？這個動作無法復原。")) return;
+  const v=state.voice; state=blank(); state.voice=v; save(); plan(); show();
+};
+
+plan(); show();
+</script>
+</body>
+</html>
