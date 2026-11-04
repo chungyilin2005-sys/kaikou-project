@@ -10,15 +10,18 @@
 
 ```
 .
-├── index.html   # 唯一的程式檔：HTML、CSS、JavaScript 全部內嵌
-├── SPEC.md      # 產品規格
-└── AGENTS.md    # 本檔
+├── index.html           # 唯一的網頁檔：HTML、CSS、JavaScript、預錄音檔全部內嵌
+├── tools/make_audio.py  # 用 Kokoro 產生句子音檔並嵌入 index.html（開發用，不是網頁的一部分）
+├── SPEC.md              # 產品規格
+├── AGENTS.md            # 本檔
+└── .tts/                # Kokoro 環境、模型、產生的 mp3（.gitignore 排除，不上 GitHub）
 ```
 
 `index.html` 內部依序為：
 1. `<style>`：顏色變數（淺色、深色兩組）→ 版面 → 招牌 → 答案區 → 句庫 → 設定
 2. HTML：`#practice`、`#library`、`#settings` 三個區塊
-3. `<script>`：`SCENES`、`RAW` 句庫 → 排程（`plan`、`rate`）→ 畫面（`show`）→ 朗讀 → 錄音 → 句庫 → 分頁與設定
+3. `<script>`：`SCENES`、`RAW` 句庫 → 排程（`plan`、`rate`）→ 畫面（`show`）→ 朗讀 → 預錄音檔（`sayCard`）→ 錄音 → 句庫 → 分頁與設定
+4. `<!-- AUDIO:BEGIN -->`～`<!-- AUDIO:END -->`：`#audio-data`，以句子 id 為鍵的 base64 mp3，約 1 MB。**由程式產生，不要手動編輯，也不要整段讀進來**；讀 `index.html` 時讀到 `AUDIO:BEGIN` 之前即可。
 
 ## 必須遵守的規則
 
@@ -43,6 +46,16 @@
 - 英文用彎引號 `’`（I’m、don’t），不要用直引號 `'`。
 - 句子要短、自然、到現場就用得上；優先挑美式口語常見說法。
 - 重點說明一行，說明關鍵片語、發音陷阱或可套用的句型，不要寫成文法課。
+
+### 3-1. 句子音檔
+- 播放句子一律呼叫 `sayCard(card, slow)`：有音檔播音檔（慢速為 `playbackRate` 0.7），沒有音檔或播放失敗才用裝置語音 `speak()`。
+- 新增或修改句子後，在專案根目錄執行（聲音固定用 `af_heart`，才會一致）：
+  ```
+  .tts/venv/Scripts/python.exe tools/make_audio.py --voice af_heart
+  .tts/venv/Scripts/python.exe tools/make_audio.py --embed
+  ```
+  第一行只補做還沒有的音檔；修改既有句子的英文時，要先刪掉 `.tts/audio/<id>.mp3` 再執行。
+- `.tts/` 不在 GitHub 上。換電腦時要重建：用 uv 建 Python 3.11 venv、安裝 `kokoro-onnx==0.6.1`，從 GitHub `thewh1teagle/kokoro-onnx` 的 `model-files-v1.0` 下載 `kokoro-v1.0.onnx`、`voices-v1.0.bin` 放到 `.tts/models/`；需要 ffmpeg。
 
 ### 4. 用語與文字
 - 介面與說明一律繁體中文、台灣用語（軟體、網路、資料夾、設定、影片、程式），不用中國大陸用語。

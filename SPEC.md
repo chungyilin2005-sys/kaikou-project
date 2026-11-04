@@ -128,7 +128,14 @@
 
 ## 7. 技術規格
 
-### 7.1 朗讀（Web Speech API）
+### 7.0 預錄音檔（優先）
+
+- 每句英文事先以 Kokoro TTS（聲音 `af_heart`，語速 0.95，Apache 2.0 授權模型）產生 mp3（單聲道 48 kbps，前後各留 0.15 秒），以 base64 嵌在 `index.html` 的 `#audio-data`，鍵為句子 `id`。
+- 播放時才解碼成 Blob 網址並快取；播放 → `playbackRate` 1，慢速播放 → 0.7（保持音高）。
+- 沒有音檔、解碼或播放失敗時，退回 §7.1 的裝置語音。
+- 產生與嵌入流程見 AGENTS.md「句子音檔」。
+
+### 7.1 朗讀（Web Speech API，備援）
 
 - 只列出 `lang` 為 `en-*` 的語音。
 - 排序加權：名稱或 `voiceURI`（不分大小寫）含 Natural、Premium、Enhanced、Neural、Ava、Zoe、Evan、Nathan、Samantha、Google US English、Aria、Jenny、Guy 者優先；Android 名稱含 network 的線上語音加分；iOS 趣味音效與 Eloquence 語音（Bubbles、Zarvox、Grandma 等）排到最後；`en-US` 再加分。
@@ -169,7 +176,7 @@
 
 ## 9. 已知限制
 
-- 朗讀品質取決於裝置內建語音，不同手機差異大。
+- 句庫句子使用預錄音檔，各裝置一致；只有沒有音檔的句子與設定試聽，品質仍取決於裝置內建語音。
 - 進度無法跨裝置；清除瀏覽資料會遺失。
 - 自評為主觀判斷，沒有自動發音評分。
 - 時區依裝置本地時間計算（使用者在台灣為 UTC+8），出國跨時區時日期可能提前或延後一天，不影響學習效果。
