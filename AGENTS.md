@@ -11,6 +11,7 @@
 ```
 .
 ├── index.html           # 唯一的網頁檔：HTML、CSS、JavaScript、預錄音檔全部內嵌
+├── icon-192.png         # 加到手機主畫面時的捷徑圖示（GitHub Pages 版使用）
 ├── tools/make_audio.py  # 用 Kokoro 產生句子音檔並嵌入 index.html（開發用，不是網頁的一部分）
 ├── SPEC.md              # 產品規格
 ├── AGENTS.md            # 本檔
